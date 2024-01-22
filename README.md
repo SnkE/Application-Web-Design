@@ -55,8 +55,3 @@ I want to program for a company like Microsoft, I also want to learn about video
 * emilsonck@outlook.com
 * emilsonck99@gmail.com
 
-
-
-
-
-"# Application-Web-Design" 
