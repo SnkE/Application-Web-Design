@@ -16,12 +16,31 @@ class LibrosController extends Controller
     }
 
     public function store(Request $request){
-        $libro = new libros;
-        $libro -> title = $request -> title;
-        $libro -> author_name = $request -> author_name;
-        $libro -> isbn = $request -> isbn;
-        $libro -> published_year = $request -> published_year;
 
+         $validateData=$request->validate([
+             'title'=>'required|max:255',
+             'author_name'=>'required',
+             'isbn'=>'required',
+             'published_year'=>'required'
+         ]);
+
+         $libro=new libros;
+         $libro->title=$validateData['title'];
+         $libro->author_name=$validateData['author_name'];
+         $libro->isbn=$validateData['isbn'];
+         $libro->published_year=$validateData['published_year'];
+
+        // $libro = new libros;
+        // $libro -> title = $request -> title;
+        // $libro -> author_name = $request -> author_name;
+        // $libro -> isbn = $request -> isbn;
+        // $libro -> published_year = $request -> published_year;
+
+        if($request->hasFile('image')){
+            $imagePath= $request->file('image')->store('LibrosImages','public');
+            //Esta linea obtiene el archivo enviado desde un formulario web y la guarda con el metodo store en el path storage/app/public/LibrosImages
+            $libro->image_path=$imagePath;
+        }
         $libro -> save(); //SQL: INSET INTO courses(title, description, ...)
         return redirect()->route('biblioteca.index');
     }
@@ -32,11 +51,24 @@ class LibrosController extends Controller
     }
 
     public function update(Request $request,$id){
-        $libro = libros::find($id);
-        $libro -> title = $request -> title;
-        $libro -> author_name = $request -> author_name;
-        $libro -> isbn = $request -> isbn;
-        $libro -> published_year = $request -> published_year;
+        $validateData=$request->validate([
+            'title'=>'required|max:255',
+            'author_name'=>'required',
+            'isbn'=>'required',
+            'published_year'=>'required',
+            
+        ]);
+
+        $libro=libros::find($id);
+        $libro->title=$validateData['title'];
+        $libro->author_name=$validateData['author_name'];
+        $libro->isbn=$validateData['isbn'];
+        $libro->published_year=$validateData['published_year'];
+        if($request->hasFile('image')){
+            $imagePath= $request->file('image')->store('LibrosImages','public');
+            //Esta linea obtiene el archivo enviado desde un formulario web y la guarda con el metodo store en el path storage/app/public/LibrosImages
+            $libro->image_path=$imagePath;
+        }
         $libro -> save();
         return redirect()->route('biblioteca.index');
     }

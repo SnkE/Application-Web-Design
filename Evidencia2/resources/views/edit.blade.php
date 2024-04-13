@@ -9,7 +9,7 @@
 <body>
     <p>Hola, esta seccion es para editar un libro de la biblioteca</p>
 
-    <form class="libro-form" action="{{ route('biblioteca.update',$libro->id)}}" method="post">
+    <form class="libro-form" action="{{ route('biblioteca.update',$libro->id)}}" method="post" enctype="multipart/form-data">
     @csrf
 
     @method('PUT')
@@ -25,6 +25,9 @@
 
     <label for= "published_year">Published Year</label>
     <input type="text" id="published_year" name ="published_year" value="{{$libro->published_year}}">
+
+    <label for= "image">Image</label>
+    <input type="file" id="image" name ="image" value="{{asset('storage/'.$libro->image_path)}}">
 
     <input type="submit" value="Edit Book">
 </body>

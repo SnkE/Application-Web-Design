@@ -22,6 +22,24 @@ h1 {
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
     margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.book-info {
+    flex: 1;
+}
+
+.book {
+    margin-bottom: 20px;
+}
+.book-content {
+    display: flex;
+    align-items: center;
+}
+.book-details {
+    flex: 1;
+    padding-right: 20px;
 }
 .book h3 {
     color: #343a40;
